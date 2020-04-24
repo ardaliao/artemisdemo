@@ -13,6 +13,13 @@ public class RestApiController {
     @Autowired
     ArtemisProducer producer;
 
+    @GetMapping(value="/sendAny")
+    public String sendAny(@RequestParam("msg")String msg){
+
+        producer.sendAny(msg);
+        return "Done Any";
+    }
+
     @GetMapping(value="/send")
     public String produce(@RequestParam("msg")String msg){
 

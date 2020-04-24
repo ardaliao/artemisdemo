@@ -16,6 +16,7 @@ import org.springframework.jms.listener.SimpleMessageListenerContainer;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import java.util.concurrent.Executors;
 
 @Configuration
 public class ReceiverConfig {
@@ -27,6 +28,8 @@ public class ReceiverConfig {
         //so setting it on the factory level need to be set after this
         configurer.configure(factory, connectionFactory);
         factory.setPubSubDomain(true);
+        factory.setTaskExecutor(Executors.newFixedThreadPool(6));
+        factory.setConcurrency("6");
         return factory;
     }
 
@@ -38,6 +41,8 @@ public class ReceiverConfig {
         //so setting it on the factory level need to be set after this
         configurer.configure(factory, connectionFactory);
         factory.setPubSubDomain(false);
+        factory.setTaskExecutor(Executors.newFixedThreadPool(6));
+        factory.setConcurrency("6");
         return factory;
     }
 
